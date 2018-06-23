@@ -1,12 +1,11 @@
 Important Notes:
 
 Requirements (Update this if anything is missing):
-Flask
-pymysql
-flask_mysqldb
-
-Install this version as the latest does not work.
-pip install mysqlclient==1.3.9 
+- Flask
+- pymysql
+- flask_mysqldb
+- Install this version as the latest does not work.
+  - pip install mysqlclient==1.3.9 
 
 Change your database port accordingly - default is 3306
 
