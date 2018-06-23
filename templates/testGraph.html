@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html ng-app="graphVisualization" lang="en" >
+	<head>
+		 <title>Shipping Data Visualization</title>
+ 
+		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+		<script src="{{ url_for('static', filename='app.js') }}"></script>
+	 
+	</head>
+	 
+	<body ng-controller="GraphVisualizationController">
+		<div class="container">
+			<div class="header">
+				<nav>
+					<ul class="nav nav-pills pull-right">
+						<li role="presentation" class="active"><a href="#">Home</a>
+						</li>
+						<li role="presentation"><a href="#">Sign In</a>
+						</li>
+						<li role="presentation"><a href="showSignUp">Sign Up</a>
+						</li>
+					</ul>
+				</nav>
+				<h3 class="text-muted">Python Flask App</h3>
+			</div>
+	 
+			<div class="jumbotron">
+				<h1>{{ div_placeholder|safe }}</h1>
+			</div>
+		</div>
+	</body>
+</html>
