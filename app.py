@@ -4,20 +4,20 @@ from python import fitting_master as fm
 
 app = Flask(__name__)
 
- 
+
 mysql = MySQL()
 # MySQL configurations
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'database'
 app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_PORT'] = 3307
+app.config['MYSQL_PORT'] = 3306
 mysql.init_app(app)
 
 @app.route('/')
 def main():
     cur = mysql.connection.cursor()
-    cur.execute("SELECT * FROM testtable")
+    cur.execute("SELECT * FROM vosmii_data")
     rv = cur.fetchall()
 ##    print str(rv)
     return render_template('index.html')
@@ -27,12 +27,12 @@ def generateGraph():
     cur = mysql.connection.cursor()
     field1 = "Speed Made Good (Kts)"
     field2 = "Wind Force"
-    
-    cur.execute("SELECT `"+ field1 + "`, `"+ field2 + "` FROM vomsii_data WHERE `"+ field1 + "` IS NOT NULL and `"+ field2 + "` IS NOT NULL and `" + field1 + "` != 'nan' and `" + field2 + "` != 'nan'")
+
+    cur.execute("SELECT `"+ field1 + "`, `"+ field2 + "` FROM vosmii_data WHERE `"+ field1 + "` IS NOT NULL and `"+ field2 + "` IS NOT NULL and `" + field1 + "` != 'nan' and `" + field2 + "` != 'nan'")
     result_set = list(cur.fetchall())
     xdata = []
     ydata = []
-                
+
     for item in result_set:
         xdata.append(item[0])
         ydata.append(item[1])
