@@ -61,8 +61,13 @@ def getColumns():
         colDict = {}
         for item in cleanRV:
             colDict[item[0]] = item[0]
-        #passing result to dataColumns as a json string
-        return render_template('test.html', dataColumns=json.dumps(colDict))
+        cursor = mysql.connection.cursor()
+        cursor.execute("select distinct`Vessel Name` from vomsii_data where `vessel name` is not null Order by `vessel name` ASC" )
+        resultValue = cursor.fetchall()
+        vnDict = {}
+        for item in resultValue:
+            vnDict[item[0]] = item[0]
+        return render_template('test.html',dataVN=json.dumps(vnDict), dataColumns=json.dumps(colDict))
 
 if __name__ == '__main__':
     app.run(debug=True)
