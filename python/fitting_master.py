@@ -36,7 +36,20 @@ from operator import mul
 
 # K Means
 from sklearn.cluster import KMeans
-# Possible extention to allow user to choose graph degree for each data set???
+
+# Graph Options Class Model - Will update with new params accordingly
+# Graph Mode: 1 - Linear, 2 - Quadratic, 3 - Cubic, 4 - Polynomial
+class GraphOptions:
+    def __init__(self, kMeans=False,markers = False, xAxisLabel=None, yAxisLabel=None, graphTitle=None, graphMode=1):
+        self.kMeans = kMeans
+        self.markers = markers
+        self.xAxisLabel = xAxisLabel
+        self.yAxisLabel = yAxisLabel
+        self.graphTitle = graphTitle
+        self.graphMode = graphMode
+    
+
+# To rewrite using a list of objects
 def generateGraphTest(graphMode=1, xData=[], xData2=[], yData=[], yData2=[], zData=[], zData2=[], kmeansOn=False, viewMarkers=False):
     # Test Comparison
     # Workaround for NaN
@@ -148,75 +161,6 @@ def generateGraphTest(graphMode=1, xData=[], xData2=[], yData=[], yData2=[], zDa
 
     fig = go.Figure(data=data, layout=layout)
     return plotly.offline.plot(fig, filename='FO Consumption & Speed Polynomial Graph', output_type='div')
-    #return fig
-
-def generateSingleGraphTest(graphMode=1, xAxis="x-axis", xData=[], yAxis="y-axis", yData=[], zData=[], kmeansOn=False, viewMarkers=False):
-    # x = [x for x in xData if str(x) != 'nan']
-    # y = [y for y in yData if str(y) != 'nan']
-    x = []
-    y = []
-    # Workaround for NaN
-    for i in range(len(xData)):
-        if str(xData[i]) == 'nan' or str(yData[i]) == 'nan':
-            continue
-        else:
-            x.append(xData[i])
-            y.append(yData[i])
-
-    print(x)
-    print(y)
-    if kmeansOn is True:
-        print 'K-Means applied to data\n'
-        numClusters = len(x) / 5
-        beforeCoords = np.c_[np.array(x), np.array(y)]
-        kmeans = KMeans(n_clusters=numClusters, random_state=0).fit(beforeCoords)
-        x = [xN for xN, yN in kmeans.cluster_centers_]
-        y = [yN for xN, yN in kmeans.cluster_centers_]
-
-    # Polyfit method master race 1=linear, 2=quadratic, 3=cubic, 4=idk
-    print "Graph Mode is " + str(graphMode)
-    z = np.polyfit(x, y, graphMode)
-    f = np.poly1d(z)
-    print 'After DD Formula'
-    print f
-
-    # calculate new x's and y's
-    x_new = np.linspace(min(x), max(x), max(x))
-    y_new = f(x_new)
-
-    # Creating the dataset, and generating the plot
-    trace2 = go.Scatter(
-        x=x_new,
-        y=y_new,
-        mode='lines',
-        marker=go.Marker(color='rgb(31, 119, 180)'),
-        name='After DD'
-    )
-
-    if viewMarkers:
-        trace3 = go.Scatter(
-            x=x,
-            y=y,
-            mode='markers',
-            marker=go.Marker(color='rgb(31, 119, 180)'),
-            name='After DD'
-        )
-
-    layout = go.Layout(
-        title='FO Consumption & Speed Graph',
-        plot_bgcolor='rgb(229, 229, 229)',
-        xaxis=go.XAxis(title=xAxis, zerolinecolor='rgb(255,255,255)', gridcolor='rgb(255,255,255)'),
-        yaxis=go.YAxis(title=yAxis, zerolinecolor='rgb(255,255,255)', gridcolor='rgb(255,255,255)'),
-        ##                  annotations=[annotation]
-    )
-
-    if viewMarkers:
-        data = [trace2, trace3]
-    else:
-        data = [trace2]
-
-    fig = go.Figure(data=data, layout=layout)
-    return fig
 
 def calculate_r(xList, yList):
     ##    Defective Cubic R**2
@@ -253,8 +197,3 @@ def calculate_r(xList, yList):
 ##print intercept
 ##print r_value
 ##calculate_r(x2, y2)
-
-# K Means (Comment this block to view original graph)
-
-
-##py.plot(fig, filename='FO Consumption & Speed Polynomial Graph')
