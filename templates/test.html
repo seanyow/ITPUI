@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="testing" lang="en" >
+	<head>
+		 <title>Shipping Data Visualization</title>
+		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+		<script src="{{ url_for('static', filename='graph.js') }}"></script>
+	</head>
+
+	<body ng-controller="testingController">
+    	<select ng-model="dataTesting" ng-options="x for x in names"></select>
+			<footer class="footer">
+				<p>&copy; Company 2015</p>
+			</footer>
+
+		</div>
+	</body>
+</html>
