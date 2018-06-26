@@ -1,6 +1,7 @@
-from flask import Flask, render_template, Markup
+from flask import Flask, render_template
 from flask_mysqldb import MySQL
 from python import fitting_master as fm
+import json
 
 app = Flask(__name__)
 
@@ -52,10 +53,16 @@ def generateGraph():
 @app.route("/Test/")
 def getColumns():
         cur = mysql.connection.cursor()
-        cur.execute("select column_name from information_schema.columns where table_name ='vosmii_data'")
+        cur.execute("select column_name from information_schema.columns where table_name ='vomsii_data'")
         rv = cur.fetchall()
-        #passing result to dataColumns
-        return render_template('test.html', dataColumns = rv)
+        # Converting all data from unicode to ascii
+        cleanRV = [[s.encode('ascii') for s in columnList] for columnList in rv]
+        # Initialize a dictionary to convert the returned data as lists does not work with flask
+        colDict = {}
+        for item in cleanRV:
+            colDict[item[0]] = item[0]
+        #passing result to dataColumns as a json string
+        return render_template('test.html', dataColumns=json.dumps(colDict))
 
 if __name__ == '__main__':
     app.run(debug=True)

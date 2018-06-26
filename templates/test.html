@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html ng-app="testing" lang="en" >
+<html ng-app="graphVisualization" lang="en" >
 	<head>
 		 <title>Shipping Data Visualization</title>
+		 <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-		<script src="{{ url_for('static', filename='graph.js') }}"></script>
+		<script src="{{ url_for('static', filename='app.js') }}"></script>
 	</head>
-
-	<body ng-controller="testingController">
-    	<select ng-model="dataTesting" ng-options="x for x in names"></select>
-			<footer class="footer">
-				<p>&copy; Company 2015</p>
-			</footer>
-
-		</div>
+	<body ng-init="init('{{ dataColumns }}')" ng-controller="GraphVisualizationController">
+    	<select ng-model="selectedFilter" >
+			<option ng-repeat="filter in dataColumns">{% raw %} {{filter}} {% endraw %}</option>
+		</select>
+		<footer class="footer">
+			<p>&copy; Company 2015</p>
+		</footer>
 	</body>
 </html>
