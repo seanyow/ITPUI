@@ -7,33 +7,31 @@
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 		<script src="{{ url_for('static', filename='app.js') }}"></script>
 	</head>
-	<div ng-init="init('{{ dataColumns }}')" ng-controller="GraphVisualizationController">
-		<!-- Sample for dropdown for x-axis -->
-    	<select ng-model="selectedFilter1" >
-			<option ng-repeat="filter1 in dataColumns" ng-bind="filter1">{% raw %} {{filter1}} {% endraw %}</option>
-			</select>
-
-			<!-- testing function to get dropdown value
-			<input type="button" value="submit" ng-click="checkselection()">
-			<h4> You have selected: {{ selectedFilter1 }} </h4>
-			-->
-
-			<!-- Sample for dropdown for y-axis -->
-			<select ng-model="selectedFilter2" >
-			<option ng-repeat="filter2 in dataColumns">{% raw %} {{filter2}} {% endraw %}</option>
-			</select>
-
-			<!-- Sample for dropdown for y-axis2 -->
-			<select ng-model="selectedFilter3" >
-			<option ng-repeat="filter3 in dataColumns">{% raw %} {{filter3}} {% endraw %}</option>
-			</select>
-	</div>
-	<div ng-init="initVN('{{ dataVN }}')" ng-controller="GraphVisualizationController">
-		<!-- sample dropdown for generateGraph filter(Vessel Name) -->
-				<select ng-model="selectedFilter4" >
-				<option ng-repeat="filterVN in dataVN">{% raw %} {{filterVN}} {% endraw %}</option>
+		<div ng-init="init('{{ dataColumns }}')" ng-controller="GraphVisualizationController">
+			<!-- Sample for dropdown for x-axis -->
+	    	<select ng-model="selectedFilter1" >
+				<option ng-repeat="filter1 in dataColumns" values="{% raw %} {{filter1}} {% endraw %}">{% raw %} {{filter1}} {% endraw %}</option>
 				</select>
-	</div>
+
+				<!-- Display selected value for x-selectedFilter1-->
+				<h4> You have selected:{% raw %} {{selectedFilter1}} {% endraw %} </h4>
+
+				<!-- Sample for dropdown for y-axis -->
+				<select ng-model="selectedFilter2" >
+				<option ng-repeat="filter2 in dataColumns">{% raw %} {{filter2}} {% endraw %}</option>
+				</select>
+
+				<!-- Sample for dropdown for y-axis2 -->
+				<select ng-model="selectedFilter3" >
+				<option ng-repeat="filter3 in dataColumns">{% raw %} {{filter3}} {% endraw %}</option>
+				</select>
+		</div>
+		<div ng-init="initVN('{{ dataVN }}')" ng-controller="GraphVisualizationController">
+			<!-- sample dropdown for generateGraph filter(Vessel Name) -->
+					<select ng-model="selectedFilter4" >
+					<option ng-repeat="filterVN in dataVN">{% raw %} {{filterVN}} {% endraw %}</option>
+					</select>
+		</div>
 		<footer class="footer">
 			<p>&copy; Company 2015</p>
 		</footer>

@@ -23,13 +23,8 @@
 			console.log(JSON.parse(html_metadata));
 			$scope.dataVN = JSON.parse(html_metadata);
 		}
-    //Method to display selected option(Error currently)
-    // $scope.checkselection= function(){
-    //   if($scope.selectedFilter1 !="" && $scope.selectedFilter1 !=undefined){
-    //   $scope.selectedFilter1 = $scope.selectedFilter1;
 
-
-    }
+     }
   ]);
 
 }());
