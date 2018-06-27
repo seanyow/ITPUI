@@ -22,6 +22,7 @@ import plotly
 plotly.tools.set_credentials_file(username='ITPTest', api_key='u4vlV6AnIkJaZssMpyFp')
 import plotly.plotly as py
 import plotly.graph_objs as go
+import json
 
 # Line Fitting
 import numpy as np
@@ -40,7 +41,10 @@ from sklearn.cluster import KMeans
 # Graph Options Class Model - Will update with new params accordingly
 # Graph Mode: 1 - Linear, 2 - Quadratic, 3 - Cubic, 4 - Polynomial
 class GraphOptions:
-    def __init__(self, kMeans=False,markers = False, xAxisLabel=None, yAxisLabel=None, graphTitle=None, graphMode=1):
+    def __init__(self, xDataJSON="", yDataJSON="", kMeans=False,markers = False, xAxisLabel=None, yAxisLabel=None, graphTitle=None, graphMode=1):
+        # https://stackoverflow.com/questions/18283510/how-to-pass-an-array-of-integers-as-a-parameter-from-javascript-to-python
+        self.xData = json.loads(xDataJSON)
+        self.yData = json.loads(yDataJSON)
         self.kMeans = kMeans
         self.markers = markers
         self.xAxisLabel = xAxisLabel
@@ -48,7 +52,30 @@ class GraphOptions:
         self.graphTitle = graphTitle
         self.graphMode = graphMode
     
+''' 
+# Initialize the list of graph options (To be completed according to how the front end passes the data
+def initOptionsList():
+    return None
 
+# Reworked Graph Function
+# To confirm whether it is generating multiple graphs at once per list or single graph with multiple lines
+def generateGraphs(optList=[]):
+    if len(optList) == 0:
+        return None
+    
+    for options in optList:
+        print options.graphMode
+        # Clean data if necessary (nan)
+        
+        if options.kMeans is True:
+            print 'K-Means applied to data\n'
+            numClusters = len(x) / 5
+            beforeCoords = np.c_[np.array(x), np.array(y)]
+            kmeans = KMeans(n_clusters=numClusters, random_state=0).fit(beforeCoords)
+            x = [xN for xN, yN in kmeans.cluster_centers_]
+            y = [yN for xN, yN in kmeans.cluster_centers_]
+'''
+            
 # To rewrite using a list of objects
 def generateGraphTest(graphMode=1, xData=[], xData2=[], yData=[], yData2=[], zData=[], zData2=[], kmeansOn=False, viewMarkers=False):
     # Test Comparison
