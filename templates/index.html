@@ -3,72 +3,76 @@
 	<head>
 		 <title>Shipping Data Visualization</title>
 
-		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+		 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-		 <link href="https://gist.githubusercontent.com/hellt/bc4fc51d6f1b9584605517f5c8d6a5a0/raw/1541916ad019f8b5349d7353489b6fd2d36513dd/jumbotron-narrow.css" rel="stylesheet">
-
-		<script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
 		<script src="{{ url_for('static', filename='app.js') }}"></script>
 
 	</head>
 
 	<body ng-controller="GraphVisualizationController">
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #33bbb0;">
+		  <a class="navbar-brand" href="#">Navbar</a>
+		  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+		    <span class="navbar-toggler-icon"></span>
+		  </button>
+		  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+		    <div class="navbar-nav">
+		      <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+		      <a class="nav-item nav-link" href="/testGraph">Graph</a>
+		      <a class="nav-item nav-link" href="#">Database</a>
+		      <a class="nav-item nav-link disabled" href="#">Archive</a>
+		    </div>
+		  </div>
+		</nav>
+
 		<div class="container">
-			<div class="header">
-				<nav>
-					<ul class="nav nav-pills pull-right">
-						<li role="presentation" class="active"><a href="#">Home</a>
-						</li>
-						<li role="presentation"><a href="#">Sign In</a>
-						</li>
-						<li role="presentation"><a href="showSignUp">Sign Up</a>
-						</li>
-					</ul>
-				</nav>
-				<h3 class="text-muted">Python Flask App</h3>
+			<div ng-repeat="card in cards" class="card" style="margin-top:12px;">
+			  <h5 class="card-header">
+					<input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Graph Name" value="Graph{% raw %} {{card}} {% endraw %}">
+				</h5>
+
+			  <div class="card-body">
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">Mode</label>
+						<select class="form-control">
+							<option ng-repeat="options in mode">{% raw %} {{options}} {% endraw %}</option>
+				    </select>
+
+						<label for="exampleFormControlSelect1">Series</label>
+				    <select class="form-control">
+							<option ng-repeat="options in options">{% raw %} {{options}} {% endraw %}</option>
+				    </select>
+
+						<label for="exampleFormControlSelect1">Ship</label>
+						<select class="form-control">
+							<option ng-repeat="options in options">{% raw %} {{options}} {% endraw %}</option>
+				    </select>
+
+						<label for="exampleFormControlSelect1">Parameter X</label>
+						<select class="form-control">
+							<option ng-repeat="options in options">{% raw %} {{options}} {% endraw %}</option>
+				    </select>
+
+						<label for="exampleFormControlSelect1">Parameter Y</label>
+						<select class="form-control">
+							<option ng-repeat="options in options">{% raw %} {{options}} {% endraw %}</option>
+				    </select>
+						<div ng-if="mode == 3D">
+							<label for="exampleFormControlSelect1">Parameter Z</label>
+							<select class="form-control">
+								<option ng-repeat="options in options">{% raw %} {{options}} {% endraw %}</option>
+							</select>
+						</div>
+
+					</div>
+
+			  </div>
 			</div>
-
-			<div class="jumbotron">
-				{% raw %}
-				<h1>{{ banner }}</h1>
-				{% endraw %}
-				<form action="/Graph/" method="post">
-					<button name="graphBtn" type="submit">Graph</button>
-				</form>
-				<p class="lead"></p>
-				<p><a class="btn btn-lg btn-success" href="showSignUp" role="button">Sign up today</a>
-				</p>
-			</div>
-
-			<div class="row marketing">
-				<div class="col-lg-6">
-					<h4>Bucket List</h4>
-					<p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-					<h4>Bucket List</h4>
-					<p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-					<h4>Bucket List</h4>
-					<p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-				</div>
-
-				<div class="col-lg-6">
-					<h4>Bucket List</h4>
-					<p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-					<h4>Bucket List</h4>
-					<p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-					<h4>Bucket List</h4>
-					<p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-				</div>
-			</div>
-
-			<footer class="footer">
-				<p>&copy; Company 2015</p>
-			</footer>
+			<a class="btn btn-primary" ng-click="addGraph()" style="margin-top:12px;">Add Graph</a>
 
 		</div>
 	</body>

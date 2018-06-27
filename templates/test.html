@@ -1,13 +1,75 @@
 <!DOCTYPE html>
 <html ng-app="graphVisualization" lang="en" >
 	<head>
-		 <title>Shipping Data Visualization</title>
-		 <script src="//code.jquery.com/jquery-2.2.1.min.js"></script>
-		<script src="//netdna.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-		<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
-		<script src="{{ url_for('static', filename='app.js') }}"></script>
+		<title>Shipping Data Visualization</title>
+
+	 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script src="{{ url_for('static', filename='app.js') }}"></script>
 	</head>
 	<div ng-init="init('{{ dataColumns }}')" ng-controller="GraphVisualizationController">
+		<nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #33bbb0;">
+			<a class="navbar-brand" href="#">Navbar</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+				<div class="navbar-nav">
+					<a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+					<a class="nav-item nav-link" href="/testGraph">Graph</a>
+					<a class="nav-item nav-link" href="#">Database</a>
+					<a class="nav-item nav-link disabled" href="#">Archive</a>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container">
+			<div ng-repeat="each in graphs" class="card" style="margin-top:12px;">
+				<h5 class="card-header">{% raw %} {{each.name}} {% endraw %}</h5>
+
+				<div class="card-body">
+					<div class="form-group">
+						<label for="exampleFormControlSelect1">Mode</label>
+						<select class="form-control" ng-value="{% raw %} {{each.x}} {% endraw %}">
+							<option ng-repeat="options in mode">{% raw %} {{each.name}} {% endraw %}</option>
+				    </select>
+
+						<label for="exampleFormControlSelect1">Series</label>
+						<select class="form-control" ng-value="{% raw %} {{each.y}} {% endraw %}">
+							<option ng-repeat="options in options">{% raw %} {{options}} {% endraw %}</option>
+				    </select>
+
+						<label for="exampleFormControlSelect1">Ship</label>
+						<select class="form-control">
+							<option ng-repeat="options in options">{% raw %} {{options}} {% endraw %}</option>
+				    </select>
+
+						<label for="exampleFormControlSelect1">Parameter X</label>
+						<select class="form-control">
+							<option ng-repeat="options in options">{% raw %} {{options}} {% endraw %}</option>
+				    </select>
+
+						<label for="exampleFormControlSelect1">Parameter Y</label>
+						<select class="form-control">
+							<option ng-repeat="options in options">{% raw %} {{options}} {% endraw %}</option>
+				    </select>
+						<div ng-if="mode == 3D">
+							<label for="exampleFormControlSelect1">Parameter Z</label>
+							<select class="form-control">
+								<option ng-repeat="options in options">{% raw %} {{options}} {% endraw %}</option>
+							</select>
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+
 		<!-- Sample for dropdown for x-axis -->
     	<select ng-model="selectedFilter1" >
 			<option ng-repeat="filter1 in dataColumns" ng-bind="filter1">{% raw %} {{filter1}} {% endraw %}</option>
